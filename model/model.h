@@ -5,7 +5,7 @@ namespace model {
 
 	class Model {
 		public:
-		static void hi(void);
+		static int hi(void);
 	};
 
 } // model

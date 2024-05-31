@@ -17,25 +17,12 @@ FetchContent_MakeAvailable(googletest)
 add_executable(Go go.cpp)
 
 add_subdirectory(model)
-
-target_link_libraries(Go Model)
+target_link_libraries(Go model)
 
 target_include_directories(
 	Go
-	PUBLIC
+	PRIVATE
 	"${PROJECT_SOURCE_DIR}/model"
 )
 
 enable_testing()
-
-add_executable(
-  hello_test
-  hello_test.cc
-)
-target_link_libraries(
-  hello_test
-  GTest::gtest_main
-)
-
-include(GoogleTest)
-gtest_discover_tests(hello_test)

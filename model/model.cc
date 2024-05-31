@@ -4,6 +4,7 @@
 
 using namespace model;
 
-void Model::hi(void) {
+int Model::hi(void) {
 	std::cout << "hi" << std::endl;
+	return 17;
 }
