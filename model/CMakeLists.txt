@@ -1,1 +1,1 @@
-add_library(Model model.cpp)
+add_library(Model model.cc)
