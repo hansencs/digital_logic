@@ -3,8 +3,7 @@ cmake_minimum_required(VERSION 3.27)
 
 project(DigitalLogic)
 
-# require c++ 14 for GoogleTest
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
@@ -23,6 +22,7 @@ target_include_directories(
 	Go
 	PRIVATE
 	"${PROJECT_SOURCE_DIR}/model"
+	"${PROJECT_SOURCE_DIR}/util"
 )
 
 enable_testing()
