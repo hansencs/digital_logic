@@ -27,6 +27,11 @@ Component::Component(
 	Component(name, input_names, output_names, &component_pin_factory)
 {}
 
+Component::~Component(void) {
+	for (auto input : inputs_) delete input;
+	for (auto output : outputs_) delete output;
+}
+
 const string &Component::name(void) const {
 	return name_;
 }

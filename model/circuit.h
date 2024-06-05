@@ -29,10 +29,16 @@ namespace model {
 
 		static constexpr class : public PinFactory {
 			public:
-			virtual InputPin *make_input_pin(Component *component, std::string name) const {
+			virtual InputPin *make_input_pin(
+				Component *component,
+				std::string name
+			) const {
 				return new DualPin(name, component);
 			}
-			virtual OutputPin *make_output_pin(Component *component, std::string name) const {
+			virtual OutputPin *make_output_pin(
+				Component *component,
+				std::string name
+			) const {
 				return new DualPin(name, component);
 			}
 		} circuit_pin_factory;

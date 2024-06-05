@@ -13,6 +13,9 @@ namespace model {
 			public:
 			const Component *component(void) const;
 			const std::string &name(void) const;
+			// virtual destructor enables Component to delete DualPin objects
+			// through InputPin and OutputPin pointers
+			virtual ~BasePin(void) {};
 
 			protected:
 			std::string name_;
