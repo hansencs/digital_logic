@@ -18,6 +18,9 @@ namespace model {
 			const std::vector<std::string> &input_names,
 			const std::vector<std::string> &output_names
 		);
+		const std::map<std::string, const Component *> &component_map(
+			void
+		) const;
 		const Component *get_component(std::string name) const;
 		const DualPin *get_input_pin(unsigned index) const;
 		const DualPin *get_input_pin(std::string name) const;

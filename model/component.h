@@ -22,8 +22,10 @@ namespace model {
 		);
 		~Component(void);
 		const std::string &name(void) const;
+		const std::vector<InputPin *> &input_pins(void) const;
 		const InputPin *get_input_pin(unsigned index) const;
 		const InputPin *get_input_pin(std::string name) const;
+		const std::vector<OutputPin *> &output_pins(void) const;
 		const OutputPin *get_output_pin(unsigned index) const;
 		const OutputPin *get_output_pin(std::string name) const;
 

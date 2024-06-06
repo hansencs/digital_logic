@@ -1,16 +1,50 @@
 add_library(
 	construction
-	construction.cc
+	circuit_spec.cc
+	component_library.cc
+	component_spec.cc
+)
+target_include_directories(
+	construction
+	PUBLIC
+	"${PROJECT_SOURCE_DIR}/model"
 )
 
 enable_testing()
 
-add_executable(construction_test construction_test.cc)
+add_executable(
+	circuit_spec_test
+	circuit_spec_test.cc
+	test_component_spec.cc
+)
 target_link_libraries(
-	construction_test
+	circuit_spec_test
+	GTest::gtest_main
+	construction
+	model
+)
+add_executable(
+	component_library_test
+	component_library_test.cc
+	test_component_spec.cc
+)
+target_link_libraries(
+	component_library_test
+	GTest::gtest_main
+	construction
+)
+add_executable(
+	component_spec_test
+	component_spec_test.cc
+	test_component_spec.cc
+)
+target_link_libraries(
+	component_spec_test
 	GTest::gtest_main
 	construction
 )
 
 include(GoogleTest)
-gtest_discover_tests(construction_test)
+gtest_discover_tests(circuit_spec_test)
+gtest_discover_tests(component_library_test)
+gtest_discover_tests(component_spec_test)

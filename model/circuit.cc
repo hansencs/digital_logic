@@ -13,9 +13,15 @@ Circuit::Circuit(
 	children_(children)
 {}
 
+const std::map<std::string, const Component *> &Circuit::component_map(
+	void
+) const {
+	return children_;
+}
+
 const Component *Circuit::get_component(std::string name) const {
 	auto it = children_.find(name);
-	if (it == children_.end()) throw "component name not found";
+	if (it == children_.end()) throw "component name <" + name + "> not found";
 	return it->second;
 }
 

@@ -17,11 +17,21 @@ TEST_F(ComponentTest, Accessors) {
 	EXPECT_EQ(c.name(), name);
 	EXPECT_EQ(c.get_input_pin(1), c.get_input_pin("in2"));
 	EXPECT_EQ(c.get_output_pin(0), c.get_output_pin("out1"));
+
+	auto inputs = c.input_pins();
+	EXPECT_EQ(inputs.size(), 2);
+	EXPECT_EQ(inputs[0]->name(), "in1");
+	EXPECT_EQ(inputs[1]->name(), "in2");
+
+	auto outputs = c.output_pins();
+	EXPECT_EQ(outputs.size(), 2);
+	EXPECT_EQ(outputs[0]->name(), "out1");
+	EXPECT_EQ(outputs[1]->name(), "out2");
 	
-	EXPECT_THROW(c.get_input_pin(2), const char *);
-	EXPECT_THROW(c.get_output_pin(2), const char *);
-	EXPECT_THROW(c.get_input_pin("out1"), const char *);
-	EXPECT_THROW(c.get_output_pin("jeremiah whhhhyyyyyyyy"), const char *);
+	EXPECT_THROW(c.get_input_pin(2), string); 
+	EXPECT_THROW(c.get_output_pin(2), string);
+	EXPECT_THROW(c.get_input_pin("out1"), string);
+	EXPECT_THROW(c.get_output_pin("jeremiah whhhhyyyyyyyy"), string);
 }
 
 TEST_F(ComponentTest, PinInitialization) {

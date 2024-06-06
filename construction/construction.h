@@ -3,8 +3,6 @@
 
 namespace construction {
 
-	void build_circuit(void);
-
 } // construction
 
 #endif
