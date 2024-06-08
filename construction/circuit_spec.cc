@@ -9,10 +9,12 @@ CircuitSpec::CircuitSpec(
 	const string &name,
 	const vector<string> &input_names,
 	const vector<string> &output_names,
-	const map<string, string> &components
+	const map<string, string> &components,
+	const vector<ConnectionSpec> &connections
 ) :
 	ComponentSpec(name, input_names, output_names),
-	components_(components)
+	components_(components),
+	connections_(connections)
 {}
 
 Circuit *CircuitSpec::construct(
@@ -26,5 +28,12 @@ Circuit *CircuitSpec::construct(
 			name_type_pair.first
 		);
 	}
-	return new Circuit(name, constructed_children, inputs_, outputs_);
+	Circuit *result = new Circuit(
+		name,
+		constructed_children,
+		inputs_,
+		outputs_
+	);
+	for (auto connection : connections_) connection.apply(result);
+	return result;
 }

@@ -6,6 +6,7 @@
 
 #include "circuit.h"
 #include "component_spec.h"
+#include "connection_spec.h"
 
 namespace construction {
 
@@ -15,7 +16,8 @@ namespace construction {
 			const std::string &name,
 			const std::vector<std::string> &input_names,
 			const std::vector<std::string> &output_names,
-			const std::map<std::string, std::string> &components
+			const std::map<std::string, std::string> &components,
+			const std::vector<ConnectionSpec> &connections
 		);
 		virtual model::Circuit *construct(
 			const ComponentLibrary *,
@@ -24,6 +26,7 @@ namespace construction {
 
 		private:
 		std::map<std::string, std::string> components_;
+		std::vector<ConnectionSpec> connections_;
 	};
 
 } // construction

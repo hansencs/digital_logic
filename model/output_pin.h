@@ -13,11 +13,11 @@ namespace model {
 	class OutputPin : public virtual base_pin::BasePin {
 		public:
 		OutputPin(const std::string &name, const Component *);
-		std::optional<const Wire *> output_wire(void) const;
-		void set_output_wire(const Wire *);
+		std::optional<Wire *> output_wire(void) const;
+		void set_output_wire(Wire *);
 
 		private:
-		std::optional<const Wire *> output_wire_;
+		std::optional<Wire *> output_wire_;
 	};
 
 } // model

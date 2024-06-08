@@ -3,6 +3,8 @@ add_library(
 	circuit_spec.cc
 	component_library.cc
 	component_spec.cc
+	connection_spec.cc
+	pin_identifier.cc
 )
 target_include_directories(
 	construction
@@ -32,6 +34,7 @@ target_link_libraries(
 	component_library_test
 	GTest::gtest_main
 	construction
+	model
 )
 add_executable(
 	component_spec_test
@@ -42,9 +45,31 @@ target_link_libraries(
 	component_spec_test
 	GTest::gtest_main
 	construction
+	model
+)
+add_executable(
+	connection_spec_test
+	connection_spec_test.cc
+)
+target_link_libraries(
+	connection_spec_test
+	GTest::gtest_main
+	construction
+	model
+)
+add_executable(
+	pin_identifier_test
+	pin_identifier_test.cc
+)
+target_link_libraries(
+	pin_identifier_test
+	GTest::gtest_main
+	construction
 )
 
 include(GoogleTest)
 gtest_discover_tests(circuit_spec_test)
 gtest_discover_tests(component_library_test)
 gtest_discover_tests(component_spec_test)
+gtest_discover_tests(connection_spec_test)
+gtest_discover_tests(pin_identifier_test)

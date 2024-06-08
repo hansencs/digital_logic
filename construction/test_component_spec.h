@@ -1,6 +1,8 @@
 #ifndef CONSTRUCTION__TEST_COMPONENT_SPEC
 #define CONSTRUCTION__TEST_COMPONENT_SPEC
 
+#include <optional>
+
 #include "component_spec.h"
 
 namespace construction {
@@ -15,9 +17,10 @@ namespace construction {
 			const ComponentLibrary *library,
 			const std::string &name
 		) const override;
+		~TestComponentSpec(void);
 
 		private:
-		model::Component *component_;
+		mutable std::optional<model::Component *> component_;
 	};
 
 } // construction

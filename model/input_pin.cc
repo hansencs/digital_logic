@@ -8,10 +8,10 @@ InputPin::InputPin(const string &name, const Component *component) {
 	component_ = component;
 }
 
-optional<const Wire *> InputPin::input_wire(void) const {
+optional<Wire *> InputPin::input_wire(void) const {
 	return input_wire_;
 }
 
-void InputPin::set_input_wire(const Wire *input_wire) {
+void InputPin::set_input_wire(Wire *input_wire) {
 	input_wire_ = input_wire;
 }

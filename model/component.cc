@@ -40,13 +40,13 @@ const std::vector<InputPin *> &Component::input_pins(void) const {
 	return inputs_;
 }
 
-const InputPin *Component::get_input_pin(unsigned index) const {
+InputPin *Component::get_input_pin(unsigned index) const {
 	if (index >= inputs_.size())
 		throw "pin index <" + to_string(index) + "> out of range";
 	return inputs_[index];
 }
 
-const InputPin *Component::get_input_pin(std::string name) const {
+InputPin *Component::get_input_pin(std::string name) const {
 	for (auto pin : inputs_) {
 		if (pin->name() == name) return pin;
 	}
@@ -57,13 +57,13 @@ const std::vector<OutputPin *> &Component::output_pins(void) const {
 	return outputs_;
 }
 
-const OutputPin *Component::get_output_pin(unsigned index) const {
+OutputPin *Component::get_output_pin(unsigned index) const {
 	if (index >= outputs_.size())
 		throw "pin index <" + to_string(index) + "> out of range";
 	return outputs_[index];
 }
 
-const OutputPin *Component::get_output_pin(std::string name) const {
+OutputPin *Component::get_output_pin(std::string name) const {
 	for (auto pin : outputs_) {
 		if (pin->name() == name) return pin;
 	}

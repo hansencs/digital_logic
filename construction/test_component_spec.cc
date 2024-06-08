@@ -1,3 +1,4 @@
+#include "component.h"
 #include "test_component_spec.h"
 
 using namespace construction;
@@ -16,5 +17,11 @@ Component *TestComponentSpec::construct(
 	const ComponentLibrary *library,
 	const string &name
 ) const {
-	return component_;
+	Component *temp = *component_;
+	component_.reset();
+	return temp;
+}
+
+TestComponentSpec::~TestComponentSpec(void) {
+	if (component_.has_value()) delete *component_;
 }

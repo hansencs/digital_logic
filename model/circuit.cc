@@ -25,18 +25,22 @@ const Component *Circuit::get_component(std::string name) const {
 	return it->second;
 }
 
-const DualPin *Circuit::get_input_pin(unsigned index) const {
-	return static_cast<const DualPin *>(Component::get_input_pin(index));
+DualPin *Circuit::get_input_pin(unsigned index) const {
+	return static_cast<DualPin *>(Component::get_input_pin(index));
 }
 
-const DualPin *Circuit::get_input_pin(std::string name) const {
-	return static_cast<const DualPin *>(Component::get_input_pin(name));
+DualPin *Circuit::get_input_pin(std::string name) const {
+	return static_cast<DualPin *>(Component::get_input_pin(name));
 }
 
-const DualPin *Circuit::get_output_pin(unsigned index) const {
-	return static_cast<const DualPin *>(Component::get_output_pin(index));
+DualPin *Circuit::get_output_pin(unsigned index) const {
+	return static_cast<DualPin *>(Component::get_output_pin(index));
 }
 
-const DualPin *Circuit::get_output_pin(std::string name) const {
-	return static_cast<const DualPin *>(Component::get_output_pin(name));
+DualPin *Circuit::get_output_pin(std::string name) const {
+	return static_cast<DualPin *>(Component::get_output_pin(name));
+}
+
+Circuit::~Circuit(void) {
+	for (auto child_component : children_) delete child_component.second;
 }

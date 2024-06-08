@@ -1,10 +1,12 @@
 #include <gtest/gtest.h>
+#include <string>
 
 #include "input_pin.h"
 #include "output_pin.h"
 #include "wire.h"
 
 using namespace model;
+using namespace std;
 
 class WireTest : public testing::Test {
 	protected:
@@ -24,6 +26,6 @@ TEST_F(WireTest, Accessors) {
 	w.add_wire_output(&ip1);
 	EXPECT_EQ(w.wire_outputs()[0], &ip1);
 
-	EXPECT_THROW(w.set_wire_input(&op1), const char *);
-	EXPECT_THROW(w.add_wire_output(&ip1), const char *);
+	EXPECT_THROW(w.set_wire_input(&op1), string);
+	EXPECT_THROW(w.add_wire_output(&ip1), string);
 }

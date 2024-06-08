@@ -11,14 +11,14 @@ namespace model {
 
 	class Wire {
 		public:
-		std::optional<const OutputPin *> wire_input(void) const;
-		const std::vector<const InputPin *> &wire_outputs(void) const;
-		void set_wire_input(const OutputPin *);
-		void add_wire_output(const InputPin *);
+		std::optional<OutputPin *> wire_input(void);
+		std::vector<InputPin *> &wire_outputs(void);
+		void set_wire_input(OutputPin *);
+		void add_wire_output(InputPin *);
 		
 		private:
-		std::optional<const OutputPin *> wire_input_;
-		std::vector<const InputPin *> wire_outputs_;
+		std::optional<OutputPin *> wire_input_;
+		std::vector<InputPin *> wire_outputs_;
 	};
 
 } // model

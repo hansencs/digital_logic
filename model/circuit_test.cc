@@ -10,9 +10,9 @@ class CircuitTest : public testing::Test {
 	string name = "short";
 	map<string, const Component *> component_map;
 	string n1 = "c1";
-	Component *comp1 = (Component *) 0xadd5ecc5;
 	string n2 = "c2";
-	Component *comp2 = (Component *) 0x10dbd;
+	Component *comp1 = new Component(n1, {}, {});
+	Component *comp2 = new Component(n2, {}, {});
 	vector<string> input_names { "in1", "in2" };
 	vector<string> output_names { "out1", "out2" };
 	Circuit *c;
@@ -31,9 +31,14 @@ class CircuitTest : public testing::Test {
 TEST_F(CircuitTest, Accessors) {
 	EXPECT_EQ(c->get_component("c2"), comp2);
 	EXPECT_TRUE(c->get_input_pin(0));
+
+	map<string, const Component *> cmap = c->component_map();
+	EXPECT_EQ(cmap.size(), 2);
+	EXPECT_EQ(cmap[n1], comp1);
+	EXPECT_EQ(cmap[n2], comp2);
 	
-	EXPECT_THROW(c->get_component("oh hi mark"), const char *);
-	EXPECT_THROW(c->get_input_pin(2), const char *);
+	EXPECT_THROW(c->get_component("oh hi mark"), string);
+	EXPECT_THROW(c->get_input_pin(2), string);
 }
 
 TEST_F(CircuitTest, PinInitialization) {

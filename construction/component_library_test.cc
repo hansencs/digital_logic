@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include "component.h"
 #include "component_library.h"
 #include "test_component_spec.h"
 
@@ -11,9 +12,10 @@ using namespace std;
 
 class ComponentLibraryTest : public testing::Test {
 	protected:
-	Component *c = (Component *) 0xfee7;
-	TestComponentSpec *s1 = new TestComponentSpec("s1", c);
-	TestComponentSpec *dups1 = new TestComponentSpec("s1", c);
+	Component *c1 = new Component("c1", {}, {});
+	Component *c2 = new Component("c2", {}, {});
+	TestComponentSpec *s1 = new TestComponentSpec("s1", c1);
+	TestComponentSpec *dups1 = new TestComponentSpec("s1", c2);
 	ComponentLibrary cl;
 	ComponentSpec *movep(TestComponentSpec **p) {
 		ComponentSpec *t = *p;
@@ -38,5 +40,5 @@ TEST_F(ComponentLibraryTest, AddExistingName) {
 TEST_F(ComponentLibraryTest, Produce) {
 	cl.add_spec(movep(&s1));
 
-	EXPECT_EQ(cl.produce("s1", "_"), c);
+	EXPECT_EQ(cl.produce("s1", "_"), c1);
 }

@@ -12,11 +12,11 @@ namespace model {
 	class InputPin : public virtual base_pin::BasePin {
 		public:
 		InputPin(const std::string &name, const Component *);
-		std::optional<const Wire *> input_wire(void) const;
-		void set_input_wire(const Wire *);
+		std::optional<Wire *> input_wire(void) const;
+		void set_input_wire(Wire *);
 
 		private:
-		std::optional<const Wire *> input_wire_;
+		std::optional<Wire *> input_wire_;
 	};
 
 } // model

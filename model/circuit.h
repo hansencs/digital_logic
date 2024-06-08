@@ -22,13 +22,14 @@ namespace model {
 			void
 		) const;
 		const Component *get_component(std::string name) const;
-		const DualPin *get_input_pin(unsigned index) const;
-		const DualPin *get_input_pin(std::string name) const;
-		const DualPin *get_output_pin(unsigned index) const;
-		const DualPin *get_output_pin(std::string name) const;
+		DualPin *get_input_pin(unsigned index) const;
+		DualPin *get_input_pin(std::string name) const;
+		DualPin *get_output_pin(unsigned index) const;
+		DualPin *get_output_pin(std::string name) const;
+		~Circuit(void);
 
 		private:
-		const std::map<std::string, const Component *> children_;
+		const std::map<std::string, const Component *> children_; //owned
 
 		static constexpr class : public PinFactory {
 			public:
