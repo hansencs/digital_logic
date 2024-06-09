@@ -6,6 +6,7 @@ add_library(
 	dual_pin.cc
 	input_pin.cc
 	model.cc
+	nand.cc
 	output_pin.cc
 	wire.cc
 )

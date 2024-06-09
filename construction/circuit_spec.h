@@ -25,6 +25,8 @@ namespace construction {
 		) const override;
 
 		private:
+		std::vector<std::string> inputs_;
+		std::vector<std::string> outputs_;
 		std::map<std::string, std::string> components_;
 		std::vector<ConnectionSpec> connections_;
 	};

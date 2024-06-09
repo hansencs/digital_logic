@@ -9,7 +9,7 @@ TestComponentSpec::TestComponentSpec(
 	const string &name,
 	Component *component
 ) :
-	ComponentSpec(name, {}, {}),
+	ComponentSpec(name),
 	component_(component)
 {}
 

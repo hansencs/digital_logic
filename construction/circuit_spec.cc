@@ -12,7 +12,9 @@ CircuitSpec::CircuitSpec(
 	const map<string, string> &components,
 	const vector<ConnectionSpec> &connections
 ) :
-	ComponentSpec(name, input_names, output_names),
+	ComponentSpec(name),
+	inputs_(input_names),
+	outputs_(output_names),
 	components_(components),
 	connections_(connections)
 {}

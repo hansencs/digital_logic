@@ -4,6 +4,7 @@ add_library(
 	component_library.cc
 	component_spec.cc
 	connection_spec.cc
+	nand_spec.cc
 	pin_identifier.cc
 )
 target_include_directories(
