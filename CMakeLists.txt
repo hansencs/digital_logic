@@ -13,18 +13,4 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
-add_executable(Go go.cpp)
-
-add_subdirectory(construction)
-add_subdirectory(model)
-target_link_libraries(Go model)
-target_link_libraries(Go construction)
-
-target_include_directories(
-	Go
-	PRIVATE
-	"${PROJECT_SOURCE_DIR}/construction"
-	"${PROJECT_SOURCE_DIR}/model"
-)
-
 enable_testing()
