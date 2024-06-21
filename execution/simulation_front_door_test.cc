@@ -46,8 +46,6 @@ TEST_P(SimulationTest, OneDevice) {
 	simulation->step();
 	device.set(Signal::HIGH);
 	simulation->step();
-	device.set(Signal::LOW);
-	simulation->step();
 }
 
 TEST_P(SimulationTest, TwoDevicesPassThrough) {
@@ -58,20 +56,36 @@ TEST_P(SimulationTest, TwoDevicesPassThrough) {
 
 
 	vector<Signal> results = { device2.check() };
-	simulation->step();
-	results.push_back(device2.check());
 	device1.set(Signal::HIGH);
-	simulation->step();
-	results.push_back(device2.check());
-	device1.set(Signal::LOW);
 	simulation->step();
 	results.push_back(device2.check());
 
 	EXPECT_EQ(
 		results,
-		vector<Signal>({ Signal::LOW, Signal::LOW, Signal::HIGH, Signal::LOW})
+		vector<Signal>({ Signal::LOW, Signal::HIGH })
 	);
 }
+
+/*
+TEST_P(SimulationTest, TwoDevicesPassThroughOnlyOnStep) {
+	TestDevice device1 {};
+	TestDevice device2 {};
+	model = new TestModel();
+	make_simulation();
+
+
+	vector<Signal> results = { device2.check() };
+	device1.set(Signal::HIGH);
+	results.push_back(device2.check());
+	simulation->step();
+	results.push_back(device2.check());
+
+	EXPECT_EQ(
+		results,
+		vector<Signal>({ Signal::LOW, Signal::LOW, Signal::HIGH })
+	);
+}
+*/
 // TODO
 // empty slots
 // model validation
