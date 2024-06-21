@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <string>
+#include <vector>
 
 #include "model_backed_simulation.h"
 #include "test_device.h"
@@ -48,3 +49,29 @@ TEST_P(SimulationTest, OneDevice) {
 	device.set(Signal::LOW);
 	simulation->step();
 }
+
+TEST_P(SimulationTest, TwoDevicesPassThrough) {
+	TestDevice device1 {};
+	TestDevice device2 {};
+	model = new TestModel();
+	make_simulation();
+
+
+	vector<Signal> results = { device2.check() };
+	simulation->step();
+	results.push_back(device2.check());
+	device1.set(Signal::HIGH);
+	simulation->step();
+	results.push_back(device2.check());
+	device1.set(Signal::LOW);
+	simulation->step();
+	results.push_back(device2.check());
+
+	EXPECT_EQ(
+		results,
+		vector<Signal>({ Signal::LOW, Signal::LOW, Signal::HIGH, Signal::LOW})
+	);
+}
+// TODO
+// empty slots
+// model validation

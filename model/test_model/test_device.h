@@ -10,6 +10,7 @@ namespace test {
 	class TestDevice : Device {
 		public:
 		void set(execution::Signal);
+		execution::Signal check(void) const;
 	};
 
 } // test

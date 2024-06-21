@@ -3,4 +3,12 @@
 using namespace execution;
 using namespace model::test;
 
-void TestDevice::set(Signal value) {}
+static Signal v;
+
+void TestDevice::set(Signal value) {
+	v = value;
+}
+
+Signal TestDevice::check(void) const {
+	return v;
+}
