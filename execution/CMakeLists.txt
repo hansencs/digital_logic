@@ -7,13 +7,8 @@ add_executable(
 target_link_libraries(
 	simulation_front_door_test
 	GTest::gtest_main
+	test_model
 )
-target_include_directories(
-	simulation_front_door_test
-	PRIVATE
-	"${PROJECT_SOURCE_DIR}/model"
-)
-
 
 include(GoogleTest)
 gtest_discover_tests(simulation_front_door_test)

@@ -1,0 +1,13 @@
+add_library(
+	test_model
+	test_model.cc
+)
+target_include_directories(
+	test_model
+	PUBLIC
+	"${PROJECT_SOURCE_DIR}/model/test_model"
+)
+target_link_libraries(
+	test_model
+	model
+)
