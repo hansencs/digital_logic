@@ -3,6 +3,7 @@
 #include <string>
 
 #include "model_backed_simulation.h"
+#include "test_device.h"
 #include "test_model.h"
 
 using namespace execution;
@@ -36,11 +37,14 @@ INSTANTIATE_TEST_SUITE_P(
 	testing::Values("ModelBackedSimulation")
 );
 
-TEST_P(SimulationTest, PlaceHolder) {
+TEST_P(SimulationTest, OneDevice) {
+	TestDevice device {};
 	model = new TestModel();
 	make_simulation();
 
 	simulation->step();
+	device.set(Signal::HIGH);
 	simulation->step();
+	device.set(Signal::LOW);
 	simulation->step();
 }

@@ -1,11 +1,17 @@
 add_library(
 	test_model
+	test_device.cc
 	test_model.cc
 )
 target_include_directories(
 	test_model
 	PUBLIC
 	"${PROJECT_SOURCE_DIR}/model/test_model"
+)
+target_include_directories(
+	test_model
+	PRIVATE
+	"${PROJECT_SOURCE_DIR}/execution"
 )
 target_link_libraries(
 	test_model
