@@ -1,6 +1,7 @@
 add_library(
 	execution
 	model_backed_simulation.cc
+	simulation.cc
 )
 target_include_directories(
 	execution
@@ -16,6 +17,7 @@ add_executable(
 )
 target_link_libraries(
 	simulation_front_door_test
+	execution
 	GTest::gtest_main
 	test_model
 )

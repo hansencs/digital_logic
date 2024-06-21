@@ -16,8 +16,7 @@ class SimulationTest : public testing::TestWithParam<string> {
 	TestModel *model;
 	Simulation *simulation;
 
-	void make_simulation(TestModel *model) {
-		this->model = model;
+	void make_simulation(void) {
 		if (GetParam() == "ModelBackedSimulation") {
 			simulation = new ModelBackedSimulation();
 			return;
@@ -37,7 +36,11 @@ INSTANTIATE_TEST_SUITE_P(
 	testing::Values("ModelBackedSimulation")
 );
 
-
 TEST_P(SimulationTest, PlaceHolder) {
-	make_simulation(new TestModel());
+	model = new TestModel();
+	make_simulation();
+
+	simulation->step();
+	simulation->step();
+	simulation->step();
 }

@@ -7,6 +7,8 @@ namespace execution {
 namespace impl {
 
 	class ModelBackedSimulation : public Simulation {
+		public:
+		virtual void step(void) override;
 	};
 
 } // impl
