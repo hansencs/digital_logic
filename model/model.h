@@ -6,7 +6,6 @@
 namespace model {
 
 	class Model {
-		public:
 	};
 
 } // model
