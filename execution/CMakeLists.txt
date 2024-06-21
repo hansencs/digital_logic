@@ -1,3 +1,13 @@
+add_library(
+	execution
+	model_backed_simulation.cc
+)
+target_include_directories(
+	execution
+	PUBLIC
+	"${PROJECT_SOURCE_DIR}/execution"
+)
+
 enable_testing()
 
 add_executable(

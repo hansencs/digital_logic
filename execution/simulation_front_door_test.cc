@@ -2,10 +2,11 @@
 
 #include <string>
 
+#include "model_backed_simulation.h"
 #include "test_model.h"
-#include "simulation.h"
 
 using namespace execution;
+using namespace execution::impl;
 using namespace model;
 using namespace model::test;
 using namespace std;
@@ -13,12 +14,19 @@ using namespace std;
 class SimulationTest : public testing::TestWithParam<string> {
 	protected:
 	TestModel *model;
+	Simulation *simulation;
 
-	Simulation *make_simulation(Model *model) {
-		return nullptr;
+	void make_simulation(TestModel *model) {
+		this->model = model;
+		if (GetParam() == "ModelBackedSimulation") {
+			simulation = new ModelBackedSimulation();
+			return;
+		}
+		throw string("invalid test parameter");
 	};
 
 	~SimulationTest(void) {
+		delete simulation;
 		delete model;
 	}
 };
@@ -26,11 +34,10 @@ class SimulationTest : public testing::TestWithParam<string> {
 INSTANTIATE_TEST_SUITE_P(
 	SimulationFrontDoorTests,
 	SimulationTest,
-	testing::Values("placeholder")
+	testing::Values("ModelBackedSimulation")
 );
 
 
 TEST_P(SimulationTest, PlaceHolder) {
-	model = new TestModel();
-	make_simulation(model);
+	make_simulation(new TestModel());
 }
