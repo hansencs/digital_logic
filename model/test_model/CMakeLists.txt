@@ -2,6 +2,7 @@ add_library(
 	test_model
 	test_device.cc
 	test_model.cc
+	test_slot.cc
 )
 target_include_directories(
 	test_model

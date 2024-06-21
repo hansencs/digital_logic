@@ -6,6 +6,7 @@
 #include "model_backed_simulation.h"
 #include "test_device.h"
 #include "test_model.h"
+#include "test_slot.h"
 
 using namespace execution;
 using namespace execution::impl;
@@ -37,6 +38,14 @@ INSTANTIATE_TEST_SUITE_P(
 	SimulationTest,
 	testing::Values("ModelBackedSimulation")
 );
+
+TEST_P(SimulationTest, EmptySlot) {
+	Slot slot = TestSlot();
+	model = new TestModel();
+	make_simulation();
+
+	simulation->step();
+}
 
 TEST_P(SimulationTest, OneDevice) {
 	TestDevice device {};
