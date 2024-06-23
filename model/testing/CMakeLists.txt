@@ -1,0 +1,15 @@
+add_library(
+	model_testing
+	test_circuit.cc
+	test_model.cc
+	test_slot.cc
+)
+target_include_directories(
+	model_testing
+	PUBLIC
+	"${PROJECT_SOURCE_DIR}/model/testing"
+)
+target_link_libraries(
+	model_testing
+	model
+)

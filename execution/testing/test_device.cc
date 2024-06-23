@@ -1,7 +1,7 @@
 #include "test_device.h"
 
 using namespace execution;
-using namespace model::test;
+using namespace execution::test;
 
 static Signal v;
 

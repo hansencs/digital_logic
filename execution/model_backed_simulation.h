@@ -8,6 +8,7 @@ namespace impl {
 
 	class ModelBackedSimulation : public Simulation {
 		public:
+		virtual void insert_device(const model::Slot *, Device *) override;
 		virtual void step(void) override;
 	};
 

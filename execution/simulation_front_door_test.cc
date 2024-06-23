@@ -11,6 +11,7 @@
 
 using namespace execution;
 using namespace execution::impl;
+using namespace execution::test;
 using namespace model;
 using namespace model::test;
 using namespace std;
@@ -52,8 +53,8 @@ TEST_P(SimulationTest, OneDevice) {
 	TestDevice device {};
 	Slot *slot = new TestSlot();
 	model = new TestModel(slot);
-	model->insert_device(slot, &device);
 	make_simulation();
+	simulation->insert_device(slot, &device);
 
 	simulation->step();
 	device.set(Signal::HIGH);
@@ -67,9 +68,9 @@ TEST_P(SimulationTest, TwoDevicesPassThrough) {
 	Slot *slot2 = new TestSlot();
 	Circuit *circuit = new TestCircuit();
 	model = new TestModel(circuit);
-	model->insert_device(slot1, &device1);
-	model->insert_device(slot2, &device2);
 	make_simulation();
+	simulation->insert_device(slot1, &device1);
+	simulation->insert_device(slot2, &device2);
 
 
 	vector<Signal> results = { device2.check() };

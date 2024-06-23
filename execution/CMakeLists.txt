@@ -9,6 +9,8 @@ target_include_directories(
 	"${PROJECT_SOURCE_DIR}/execution"
 )
 
+add_subdirectory(testing)
+
 enable_testing()
 
 add_executable(
@@ -18,8 +20,9 @@ add_executable(
 target_link_libraries(
 	simulation_front_door_test
 	execution
+	execution_testing
 	GTest::gtest_main
-	test_model
+	model_testing
 )
 
 include(GoogleTest)

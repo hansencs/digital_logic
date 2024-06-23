@@ -4,17 +4,17 @@
 #include "device.h"
 #include "execution.h"
 
-namespace model {
+namespace execution {
 namespace test {
 
 	class TestDevice : public Device {
 		public:
-		void set(execution::Signal);
-		execution::Signal check(void) const;
+		void set(Signal);
+		Signal check(void) const;
 	};
 
 } // test
-} // model
+} // execution
 
 
 #endif

@@ -1,0 +1,13 @@
+add_library(
+	execution_testing
+	test_device.cc
+)
+target_include_directories(
+	execution_testing
+	PUBLIC
+	"${PROJECT_SOURCE_DIR}/execution/testing"
+)
+target_link_libraries(
+	execution_testing
+	execution
+)
