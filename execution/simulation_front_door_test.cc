@@ -52,6 +52,7 @@ TEST_P(SimulationTest, OneDevice) {
 	TestDevice device {};
 	Slot *slot = new TestSlot();
 	model = new TestModel(slot);
+	model->insert_device(slot, &device);
 	make_simulation();
 
 	simulation->step();
@@ -62,8 +63,12 @@ TEST_P(SimulationTest, OneDevice) {
 TEST_P(SimulationTest, TwoDevicesPassThrough) {
 	TestDevice device1 {};
 	TestDevice device2 {};
+	Slot *slot1 = new TestSlot();
+	Slot *slot2 = new TestSlot();
 	Circuit *circuit = new TestCircuit();
 	model = new TestModel(circuit);
+	model->insert_device(slot1, &device1);
+	model->insert_device(slot2, &device2);
 	make_simulation();
 
 

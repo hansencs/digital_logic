@@ -7,7 +7,7 @@
 namespace model {
 namespace test {
 
-	class TestDevice : Device {
+	class TestDevice : public Device {
 		public:
 		void set(execution::Signal);
 		execution::Signal check(void) const;
