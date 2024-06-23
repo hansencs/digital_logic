@@ -8,4 +8,4 @@ target_include_directories(
 	"${PROJECT_SOURCE_DIR}/model"
 )
 
-add_subdirectory(test_model)
+add_subdirectory(testing)
