@@ -4,9 +4,17 @@
 #include "model.h"
 
 namespace model {
+
+class Component;
+
 namespace test {
 
 	class TestModel : public Model {
+		public:
+		TestModel(const Component *top_level_component);
+
+		private:
+		const Component *top_level_component_;
 	};
 
 } // test

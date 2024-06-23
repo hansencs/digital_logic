@@ -1,5 +1,6 @@
 add_library(
 	test_model
+	test_circuit.cc
 	test_device.cc
 	test_model.cc
 	test_slot.cc

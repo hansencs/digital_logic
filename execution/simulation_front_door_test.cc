@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "model_backed_simulation.h"
+#include "test_circuit.h"
 #include "test_device.h"
 #include "test_model.h"
 #include "test_slot.h"
@@ -40,8 +41,8 @@ INSTANTIATE_TEST_SUITE_P(
 );
 
 TEST_P(SimulationTest, EmptySlot) {
-	Slot slot = TestSlot();
-	model = new TestModel();
+	Slot *slot = new TestSlot();
+	model = new TestModel(slot);
 	make_simulation();
 
 	simulation->step();
@@ -49,7 +50,8 @@ TEST_P(SimulationTest, EmptySlot) {
 
 TEST_P(SimulationTest, OneDevice) {
 	TestDevice device {};
-	model = new TestModel();
+	Slot *slot = new TestSlot();
+	model = new TestModel(slot);
 	make_simulation();
 
 	simulation->step();
@@ -60,7 +62,8 @@ TEST_P(SimulationTest, OneDevice) {
 TEST_P(SimulationTest, TwoDevicesPassThrough) {
 	TestDevice device1 {};
 	TestDevice device2 {};
-	model = new TestModel();
+	Circuit *circuit = new TestCircuit();
+	model = new TestModel(circuit);
 	make_simulation();
 
 
@@ -98,3 +101,5 @@ TEST_P(SimulationTest, TwoDevicesPassThroughOnlyOnStep) {
 // TODO
 // empty slots
 // model validation
+// component handles and slot handles
+// device classes, slot types
