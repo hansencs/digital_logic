@@ -84,26 +84,28 @@ TEST_P(SimulationTest, TwoDevicesPassThrough) {
 	);
 }
 
-/*
-TEST_P(SimulationTest, TwoDevicesPassThroughOnlyOnStep) {
+TEST_P(SimulationTest, TwoDevicesPassThroughRequiresStep) {
 	TestDevice device1 {};
 	TestDevice device2 {};
-	model = new TestModel();
+	Slot *slot1 = new TestSlot();
+	Slot *slot2 = new TestSlot();
+	Circuit *circuit = new TestCircuit();
+	model = new TestModel(circuit);
 	make_simulation();
+	simulation->insert_device(slot1, &device1);
+	simulation->insert_device(slot2, &device2);
 
 
 	vector<Signal> results = { device2.check() };
 	device1.set(Signal::HIGH);
 	results.push_back(device2.check());
-	simulation->step();
-	results.push_back(device2.check());
 
 	EXPECT_EQ(
 		results,
-		vector<Signal>({ Signal::LOW, Signal::LOW, Signal::HIGH })
+		vector<Signal>({ Signal::LOW, Signal::LOW })
 	);
 }
-*/
+
 // TODO
 // empty slots
 // model validation

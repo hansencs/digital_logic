@@ -9,8 +9,13 @@ namespace test {
 
 	class TestDevice : public Device {
 		public:
+		TestDevice(void);
+		virtual void step(void) override;
 		void set(Signal);
 		Signal check(void) const;
+
+		private:
+		Signal temp_s_;
 	};
 
 } // test

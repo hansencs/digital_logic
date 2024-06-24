@@ -4,6 +4,8 @@
 namespace execution {
 
 	class Device {
+		public:
+		virtual void step(void) = 0;
 	};
 
 } // model
