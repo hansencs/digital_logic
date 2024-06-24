@@ -23,7 +23,7 @@ class SimulationTest : public testing::TestWithParam<string> {
 
 	void make_simulation(void) {
 		if (GetParam() == "ModelBackedSimulation") {
-			simulation = new ModelBackedSimulation();
+			simulation = new ModelBackedSimulation(model);
 			return;
 		}
 		throw string("invalid test parameter");
@@ -73,36 +73,16 @@ TEST_P(SimulationTest, TwoDevicesPassThrough) {
 	simulation->insert_device(slot2, &device2);
 
 
-	vector<Signal> results = { device2.check() };
 	device1.set(Signal::HIGH);
+	vector<Signal> results = { device2.check() };
+	simulation->step();
+	results.push_back(device2.check());
 	simulation->step();
 	results.push_back(device2.check());
 
 	EXPECT_EQ(
 		results,
-		vector<Signal>({ Signal::LOW, Signal::HIGH })
-	);
-}
-
-TEST_P(SimulationTest, TwoDevicesPassThroughRequiresStep) {
-	TestDevice device1 {};
-	TestDevice device2 {};
-	Slot *slot1 = new TestSlot();
-	Slot *slot2 = new TestSlot();
-	Circuit *circuit = new TestCircuit();
-	model = new TestModel(circuit);
-	make_simulation();
-	simulation->insert_device(slot1, &device1);
-	simulation->insert_device(slot2, &device2);
-
-
-	vector<Signal> results = { device2.check() };
-	device1.set(Signal::HIGH);
-	results.push_back(device2.check());
-
-	EXPECT_EQ(
-		results,
-		vector<Signal>({ Signal::LOW, Signal::LOW })
+		vector<Signal>({ Signal::LOW, Signal::LOW, Signal::HIGH })
 	);
 }
 

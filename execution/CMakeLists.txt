@@ -8,6 +8,11 @@ target_include_directories(
 	PUBLIC
 	"${PROJECT_SOURCE_DIR}/execution"
 )
+target_include_directories(
+	execution
+	PRIVATE
+	"${PROJECT_SOURCE_DIR}/model"
+)
 
 add_subdirectory(testing)
 
