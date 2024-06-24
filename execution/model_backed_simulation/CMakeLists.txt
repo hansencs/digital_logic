@@ -1,0 +1,15 @@
+add_library(
+	model_backed_simulation
+	model_backed_simulation.cc
+)
+target_include_directories(
+	model_backed_simulation
+	PUBLIC
+	"${PROJECT_SOURCE_DIR}/execution/model_backed_simulation"
+)
+target_include_directories(
+	model_backed_simulation
+	PRIVATE
+	"${PROJECT_SOURCE_DIR}/execution"
+	"${PROJECT_SOURCE_DIR}/model"
+)

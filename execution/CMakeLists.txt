@@ -1,6 +1,5 @@
 add_library(
 	execution
-	model_backed_simulation.cc
 	simulation.cc
 )
 target_include_directories(
@@ -8,12 +7,13 @@ target_include_directories(
 	PUBLIC
 	"${PROJECT_SOURCE_DIR}/execution"
 )
-target_include_directories(
+target_link_libraries(
 	execution
-	PRIVATE
-	"${PROJECT_SOURCE_DIR}/model"
+	PUBLIC
+	model_backed_simulation
 )
 
+add_subdirectory(model_backed_simulation)
 add_subdirectory(testing)
 
 enable_testing()
