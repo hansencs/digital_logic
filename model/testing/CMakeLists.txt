@@ -2,7 +2,9 @@ add_library(
 	model_testing
 	test_circuit.cc
 	test_model.cc
+	test_pin.cc
 	test_slot.cc
+	test_wire.cc
 )
 target_include_directories(
 	model_testing

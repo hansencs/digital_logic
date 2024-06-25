@@ -14,9 +14,8 @@ namespace test {
 	class TestModel : public Model {
 		public:
 		TestModel(const Component *top_level_component);
-
-		private:
-		const Component * const top_level_component_;
+		virtual const Component *top_level_component(void) const override;
+		const Component *top_level_component_;
 	};
 
 } // test

@@ -2,7 +2,6 @@
 #define MODEL__TEST_MODEL__TEST_DEVICE_H_
 
 #include "device.h"
-#include "execution.h"
 
 namespace execution {
 namespace test {
@@ -10,7 +9,7 @@ namespace test {
 	class TestDevice : public Device {
 		public:
 		TestDevice(void);
-		virtual void step(void) override;
+		virtual Signal step(Signal) override;
 		void set(Signal);
 		Signal check(void) const;
 

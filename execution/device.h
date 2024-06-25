@@ -1,11 +1,13 @@
 #ifndef EXECUTION__DEVICE_H_
 #define EXECUTION__DEVICE_H_
 
+#include "execution.h"
+
 namespace execution {
 
 	class Device {
 		public:
-		virtual void step(void) = 0;
+		virtual Signal step(Signal) = 0;
 	};
 
 } // model

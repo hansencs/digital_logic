@@ -1,6 +1,7 @@
 add_library(
 	model
-	placeholder.cc
+	circuit.cc
+	slot.cc
 )
 target_include_directories(
 	model

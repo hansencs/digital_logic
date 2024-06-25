@@ -8,6 +8,7 @@
 #include "test_device.h"
 #include "test_model.h"
 #include "test_slot.h"
+#include "test_wire.hpp"
 
 using namespace execution;
 using namespace execution::impl;
@@ -42,7 +43,7 @@ INSTANTIATE_TEST_SUITE_P(
 );
 
 TEST_P(SimulationTest, EmptySlot) {
-	Slot *slot = new TestSlot();
+	TestSlot *slot = new TestSlot(0, 1);
 	model = new TestModel(slot);
 	make_simulation();
 
@@ -51,7 +52,7 @@ TEST_P(SimulationTest, EmptySlot) {
 
 TEST_P(SimulationTest, OneDevice) {
 	TestDevice device {};
-	Slot *slot = new TestSlot();
+	TestSlot *slot = new TestSlot(0, 1);
 	model = new TestModel(slot);
 	make_simulation();
 	simulation->insert_device(slot, &device);
@@ -62,13 +63,18 @@ TEST_P(SimulationTest, OneDevice) {
 }
 
 TEST_P(SimulationTest, TwoDevicesPassThrough) {
-	TestDevice device1 {};
-	TestDevice device2 {};
-	Slot *slot1 = new TestSlot();
-	Slot *slot2 = new TestSlot();
-	Circuit *circuit = new TestCircuit();
+	TestSlot *slot1 = new TestSlot(0, 1);
+	TestSlot *slot2 = new TestSlot(1, 0);
+	TestWire *w1 = new TestWire();
+	w1->connect_pin(slot1->output_pins_[0], true);
+	w1->connect_pin(slot2->input_pins_[0], false);
+	TestCircuit *circuit = new TestCircuit();
+	circuit->components_.push_back(slot1);
+	circuit->components_.push_back(slot2);
 	model = new TestModel(circuit);
 	make_simulation();
+	TestDevice device1 {};
+	TestDevice device2 {};
 	simulation->insert_device(slot1, &device1);
 	simulation->insert_device(slot2, &device2);
 
@@ -91,3 +97,7 @@ TEST_P(SimulationTest, TwoDevicesPassThrough) {
 // model validation
 // component handles and slot handles
 // device classes, slot types
+// unused output pin
+// src dir
+// hpp 
+// model virtual destructors
