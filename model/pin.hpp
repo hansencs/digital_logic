@@ -11,7 +11,6 @@ namespace model {
 	class Pin {
 		public:
 		virtual const Component *component(void) const = 0;
-		virtual const Wire *wire(void) const = 0;
 		virtual const std::string &name(void) const = 0;
 	};
 

@@ -5,7 +5,8 @@
 
 namespace model {
 
-	class Pin;
+	class InputPin;
+	class OutputPin;
 
 	enum class ComponentType {
 		CIRCUIT,
@@ -15,8 +16,8 @@ namespace model {
 	class Component {
 		public:
 		virtual ComponentType component_type(void) const = 0;
-		virtual std::span<const Pin * const> input_pins(void) const = 0;
-		virtual std::span<const Pin * const> output_pins(void) const = 0;
+		virtual std::span<const InputPin * const> input_pins(void) const = 0;
+		virtual std::span<const OutputPin * const> output_pins(void) const = 0;
 	};
 
 } // model

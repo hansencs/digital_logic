@@ -5,11 +5,13 @@
 
 namespace model {
 
-	class Pin;
+	class InputPin;
+	class OutputPin;
 
 	class Wire {
 		public:
-		virtual std::span<const Pin * const> outputs(void) const = 0;
+		virtual const OutputPin *input(void) const = 0;
+		virtual std::span<const InputPin * const> outputs(void) const = 0;
 	};
 
 } // model

@@ -6,7 +6,8 @@
 #include "device.h"
 #include "model.h"
 #include "model_backed_simulation.h"
-#include "pin.hpp"
+#include "input_pin.hpp"
+#include "output_pin.hpp"
 #include "slot.h"
 #include "wire.h"
 
@@ -81,12 +82,13 @@ void ModelBackedSimulation::insert_device(
 #include <iostream>
 
 void ModelBackedSimulation::step_slot(const Slot *slot) {
+	if (device_map_.find(slot) == device_map_.end()) return;
 	auto device = device_map_[slot];
 	Signal give = Signal::LOW, take;
 	cout << "step " << slot << endl;
 	if (slot->input_pins().size() > 0) {
 		give = pin_values_[slot->input_pins()[0]];
-		cout << " vin " << (int) give << endl;
+		cout << " vin " << (int) give << " from " << slot->input_pins()[0] << endl;
 	}
 	take = device->step(give);
 	if (slot->output_pins().size() > 0) {
@@ -109,20 +111,23 @@ void ModelBackedSimulation::step(void) {
 	}
 	for (auto component : discrete_components_) {
 		auto pin_vec = component->output_pins();
-		list<const Pin *> frontier { pin_vec.begin(), pin_vec.end() };
+		list<const OutputPin *> frontier { pin_vec.begin(), pin_vec.end() };
 		while (!frontier.empty()) {
 			auto pin = frontier.front();
 			frontier.pop_front();
-			auto wire = pin->wire();
+			auto maybe_wire = pin->output_wire();
+			if (!maybe_wire.has_value()) continue;
+			auto wire = *maybe_wire;
 			wire_values_[wire] = pin_values_[pin];
 			cout << "frontier pin to wire " << pin << " " << wire << " " << (int) wire_values_[wire] << endl;
 			for (auto w_out_pin : wire->outputs()) {
 				pin_values_[w_out_pin] = wire_values_[wire];
+				cout << "set pin " << pin << endl;
 				auto w_out_component = w_out_pin->component();
 				if (w_out_component->component_type() == ComponentType::CIRCUIT) {
 					auto circuit = static_cast<const Circuit *>(w_out_component);
 					auto name = w_out_pin->name();
-					auto new_frontier_pin = circuit->get_interior_output_pin(name);
+					auto new_frontier_pin = circuit->get_interior_input_pin(name);
 					pin_values_[new_frontier_pin] = pin_values_[w_out_pin];
 					frontier.push_back(new_frontier_pin);
 				}

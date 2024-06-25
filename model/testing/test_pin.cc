@@ -12,8 +12,13 @@ const Component *TestPin::component(void) const {
 	return component_;
 }
 
-const Wire *TestPin::wire(void) const {
+const Wire *TestPin::input_wire(void) const {
 	return wire_;
+}
+
+optional<const Wire *> TestPin::output_wire(void) const {
+	if (wire_ == nullptr) return {};
+	return { wire_ };
 }
 
 const std::string &TestPin::name(void) const {

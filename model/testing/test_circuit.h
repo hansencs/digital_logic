@@ -13,16 +13,18 @@ namespace test {
 	class TestCircuit : public Circuit {
 		public:
 		TestCircuit();
-		virtual std::span<const Pin * const> input_pins(void) const override;
-		virtual std::span<const Pin * const> output_pins(void) const override;
+		virtual std::span<const InputPin * const> input_pins(void)
+			const override;
+		virtual std::span<const OutputPin * const> output_pins(void)
+			const override;
 		virtual std::span<const Component * const> components(void)
 			const override;
-		virtual const Pin *get_interior_output_pin(std::string pin_name)
+		virtual const OutputPin *get_interior_input_pin(std::string pin_name)
 			const override;
 		std::vector<Component *> components_;
-		std::vector<Pin *> input_pins_;
-		std::vector<Pin *> output_pins_;
-		std::vector<Pin *> interior_output_pins_;
+		std::vector<InputPin *> input_pins_;
+		std::vector<OutputPin *> output_pins_;
+		std::vector<OutputPin *> interior_input_pins_;
 	};
 
 } // test

@@ -14,10 +14,10 @@ TestSlot::TestSlot(unsigned input_pin_count, unsigned output_pin_count) {
 	}
 }
 
-span<const Pin * const> TestSlot::input_pins(void) const {
+span<const InputPin * const> TestSlot::input_pins(void) const {
 	return { input_pins_ };
 }
 
-span<const Pin * const> TestSlot::output_pins(void) const {
+span<const OutputPin * const> TestSlot::output_pins(void) const {
 	return { output_pins_ };
 }

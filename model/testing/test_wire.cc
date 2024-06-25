@@ -5,14 +5,22 @@ using namespace model;
 using namespace model::test;
 using namespace std;
 
-span<const Pin * const> TestWire::outputs(void) const {
-	return { output_pins_ };
+const OutputPin *TestWire::input(void) const {
+	return wire_input_;
 }
 
-void TestWire::connect_pin(Pin *pin, bool input) {
+span<const InputPin * const> TestWire::outputs(void) const {
+	return { wire_outputs_ };
+}
+
+void TestWire::connect_pin(InputPin *pin) {
 	auto test_pin = dynamic_cast<TestPin *>(pin);
 	test_pin->set_wire(this);
-	if (!input) {
-		output_pins_.push_back(test_pin);
-	}
+	wire_outputs_.push_back(pin);
+}
+
+void TestWire::connect_pin(OutputPin *pin) {
+	auto test_pin = dynamic_cast<TestPin *>(pin);
+	test_pin->set_wire(this);
+	wire_input_ = pin;
 }

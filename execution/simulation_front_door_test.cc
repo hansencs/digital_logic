@@ -66,8 +66,8 @@ TEST_P(SimulationTest, TwoDevicesPassThrough) {
 	TestSlot *slot1 = new TestSlot(0, 1);
 	TestSlot *slot2 = new TestSlot(1, 0);
 	TestWire *w1 = new TestWire();
-	w1->connect_pin(slot1->output_pins_[0], true);
-	w1->connect_pin(slot2->input_pins_[0], false);
+	w1->connect_pin(slot1->output_pins_[0]);
+	w1->connect_pin(slot2->input_pins_[0]);
 	TestCircuit *circuit = new TestCircuit();
 	circuit->components_.push_back(slot1);
 	circuit->components_.push_back(slot2);
@@ -101,3 +101,5 @@ TEST_P(SimulationTest, TwoDevicesPassThrough) {
 // src dir
 // hpp 
 // model virtual destructors
+// rethink pin naming scheme
+// logging
