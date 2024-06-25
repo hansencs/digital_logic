@@ -5,9 +5,9 @@ using namespace execution::test;
 
 TestDevice::TestDevice(void) : temp_s_(Signal::LOW) {}
 
-Signal TestDevice::step(Signal s) {
+Signal TestDevice::step(Signal s, bool set) {
 	Signal temp = temp_s_;
-	temp_s_ = s;
+	if (set) temp_s_ = s;
 	return temp;
 }
 

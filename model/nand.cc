@@ -1,8 +1,7 @@
-#include "nand.h"
+#include "nand.hpp"
 
 using namespace model;
-using namespace std;
 
-NAND::NAND(const string &name) :
-	Component(name, { "left", "right" }, { "out" })
-{}
+ComponentType Nand::component_type(void) const {
+	return ComponentType::NAND;
+}

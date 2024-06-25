@@ -11,6 +11,7 @@ namespace model {
 
 	class Component;
 	class Model;
+	class Nand;
 	class Pin;
 	class Wire;
 
@@ -26,6 +27,7 @@ namespace impl {
 		virtual void step(void) override;
 
 		private:
+		void step_nand(const model::Nand *);
 		void step_slot(const model::Slot *);
 		const model::Model *model_;
 		std::set<const model::Component *> discrete_components_;

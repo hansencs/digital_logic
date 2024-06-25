@@ -10,6 +10,7 @@ namespace model {
 
 	enum class ComponentType {
 		CIRCUIT,
+		NAND,
 		SLOT
 	};
 

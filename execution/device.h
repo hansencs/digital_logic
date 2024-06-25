@@ -7,7 +7,7 @@ namespace execution {
 
 	class Device {
 		public:
-		virtual Signal step(Signal) = 0;
+		virtual Signal step(Signal, bool) = 0;
 	};
 
 } // model

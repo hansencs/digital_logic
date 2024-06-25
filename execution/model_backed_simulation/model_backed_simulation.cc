@@ -6,6 +6,7 @@
 #include "device.h"
 #include "model.h"
 #include "model_backed_simulation.h"
+#include "nand.hpp"
 #include "input_pin.hpp"
 #include "output_pin.hpp"
 #include "slot.h"
@@ -31,13 +32,13 @@ static inline void extract_circuit(
 		extract(sub_component, discrete_components, pin_values);
 }
 
-static inline void extract_slot(
-	const Slot *slot,
+static inline void extract_discrete_component(
+	const Component *component,
 	set<const Component *> &discrete_components,
 	map<const Pin *, Signal> &pin_values
 ) {
-	discrete_components.insert(slot);
-	for (auto pin : slot->input_pins()) pin_values[pin] = Signal::LOW;
+	discrete_components.insert(component);
+	for (auto pin : component->input_pins()) pin_values[pin] = Signal::LOW;
 }
 
 static void extract(
@@ -54,9 +55,10 @@ static void extract(
 			pin_values
 		);
 
+		case ComponentType::NAND:
 		case ComponentType::SLOT:
-		return extract_slot(
-			static_cast<const Slot *>(component),
+		return extract_discrete_component(
+			component,
 			discrete_components,
 			pin_values
 		);
@@ -79,21 +81,26 @@ void ModelBackedSimulation::insert_device(
 	device_map_[slot] = device;
 }
 
-#include <iostream>
+void ModelBackedSimulation::step_nand(const model::Nand *nand) {
+	Signal left = pin_values_[nand->nand_left_input()];
+	Signal right = pin_values_[nand->nand_right_input()];
+	pin_values_[nand->nand_output()] =
+		(left == Signal::HIGH && right == Signal::HIGH) ?
+		Signal::LOW : Signal::HIGH;
+}
 
 void ModelBackedSimulation::step_slot(const Slot *slot) {
 	if (device_map_.find(slot) == device_map_.end()) return;
 	auto device = device_map_[slot];
 	Signal give = Signal::LOW, take;
-	cout << "step " << slot << endl;
+	bool set = false;
 	if (slot->input_pins().size() > 0) {
+		set = true;
 		give = pin_values_[slot->input_pins()[0]];
-		cout << " vin " << (int) give << " from " << slot->input_pins()[0] << endl;
 	}
-	take = device->step(give);
+	take = device->step(give, set);
 	if (slot->output_pins().size() > 0) {
 		pin_values_[slot->output_pins()[0]] = take;
-		cout << " vout " << (int) take << endl;
 	}
 }
 
@@ -101,6 +108,10 @@ void ModelBackedSimulation::step(void) {
 	for (auto component : discrete_components_) {
 		ComponentType c_type = component->component_type();
 		switch (c_type) {
+			case ComponentType::NAND:
+			step_nand(static_cast<const Nand *>(component));
+			break;
+
 			case ComponentType::SLOT:
 			step_slot(static_cast<const Slot *>(component));
 			break;
@@ -119,10 +130,8 @@ void ModelBackedSimulation::step(void) {
 			if (!maybe_wire.has_value()) continue;
 			auto wire = *maybe_wire;
 			wire_values_[wire] = pin_values_[pin];
-			cout << "frontier pin to wire " << pin << " " << wire << " " << (int) wire_values_[wire] << endl;
 			for (auto w_out_pin : wire->outputs()) {
 				pin_values_[w_out_pin] = wire_values_[wire];
-				cout << "set pin " << pin << endl;
 				auto w_out_component = w_out_pin->component();
 				if (w_out_component->component_type() == ComponentType::CIRCUIT) {
 					auto circuit = static_cast<const Circuit *>(w_out_component);

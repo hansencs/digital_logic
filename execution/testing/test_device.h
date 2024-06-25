@@ -9,7 +9,7 @@ namespace test {
 	class TestDevice : public Device {
 		public:
 		TestDevice(void);
-		virtual Signal step(Signal) override;
+		virtual Signal step(Signal, bool) override;
 		void set(Signal);
 		Signal check(void) const;
 
