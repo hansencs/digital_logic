@@ -17,6 +17,7 @@ namespace model {
 		virtual const OutputPin *get_interior_input_pin(
 			std::string pin_name
 		) const = 0;
+		virtual ~Circuit(void) override {};
 	};
 
 } // model

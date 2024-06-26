@@ -10,6 +10,7 @@ namespace model {
 	class InputPin : public Pin {
 		public:
 		virtual const Wire *input_wire(void) const = 0;
+		virtual ~InputPin(void) override {};
 	};
 
 } // model

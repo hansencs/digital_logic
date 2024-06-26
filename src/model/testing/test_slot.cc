@@ -21,3 +21,8 @@ span<const InputPin * const> TestSlot::input_pins(void) const {
 span<const OutputPin * const> TestSlot::output_pins(void) const {
 	return { output_pins_ };
 }
+
+TestSlot::~TestSlot(void) {
+	for (auto pin : input_pins_) delete pin;
+	for (auto pin : output_pins_) delete pin;
+}

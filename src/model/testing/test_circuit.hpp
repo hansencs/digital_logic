@@ -8,8 +8,6 @@
 namespace model {
 namespace test {
 
-	class TestPin;
-
 	class TestCircuit : public Circuit {
 		public:
 		TestCircuit();
@@ -21,6 +19,7 @@ namespace test {
 			const override;
 		virtual const OutputPin *get_interior_input_pin(std::string pin_name)
 			const override;
+		~TestCircuit(void);
 		std::vector<Component *> components_;
 		std::vector<InputPin *> input_pins_;
 		std::vector<OutputPin *> output_pins_;

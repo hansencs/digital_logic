@@ -30,3 +30,8 @@ const InputPin *TestNand::nand_right_input(void) const {
 const OutputPin *TestNand::nand_output(void) const {
 	return output_pin_[0];
 }
+
+TestNand::~TestNand(void) {
+	for (auto pin : input_pins_) delete pin;
+	for (auto pin : output_pin_) delete pin;
+}

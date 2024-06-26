@@ -15,6 +15,7 @@ namespace test {
 		public:
 		TestModel(const Component *top_level_component);
 		virtual const Component *top_level_component(void) const override;
+		~TestModel(void);
 		const Component *top_level_component_;
 	};
 

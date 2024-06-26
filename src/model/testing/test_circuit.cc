@@ -1,3 +1,4 @@
+#include "input_pin.hpp"
 #include "output_pin.hpp"
 #include "test_circuit.hpp"
 
@@ -25,4 +26,10 @@ const OutputPin *TestCircuit::get_interior_input_pin(string pin_name) const {
 		if (pin->name() == pin_name) return pin;
 	}
 	throw string("pin name not found: " + pin_name);
+}
+
+TestCircuit::~TestCircuit(void) {
+	for (auto sub_component : components_) delete sub_component;
+	for (auto pin : input_pins_) delete pin;
+	for (auto pin : output_pins_) delete pin;
 }

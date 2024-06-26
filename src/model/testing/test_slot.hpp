@@ -15,6 +15,7 @@ namespace test {
 			const override;
 		virtual std::span<const OutputPin * const> output_pins(void)
 			const override;
+		~TestSlot(void);
 		std::vector<InputPin *> input_pins_;
 		std::vector<OutputPin *> output_pins_;
 	};

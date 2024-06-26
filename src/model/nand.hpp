@@ -11,6 +11,7 @@ namespace model {
 		virtual const InputPin *nand_left_input(void) const = 0;
 		virtual const InputPin *nand_right_input(void) const = 0;
 		virtual const OutputPin *nand_output(void) const = 0;
+		virtual ~Nand(void) override {};
 	};
 
 } // model

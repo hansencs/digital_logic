@@ -8,6 +8,7 @@ namespace model {
 	class Model {
 		public:
 		virtual const Component *top_level_component(void) const = 0;
+		virtual ~Model(void) {};
 	};
 
 } // model

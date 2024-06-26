@@ -221,8 +221,5 @@ TEST_P(SimulationTest, SingleNand) {
 // component handles and slot handles
 // device classes, slot types
 // unused output pin
-// src dir
-// hpp 
-// model virtual destructors
 // rethink pin naming scheme
 // logging

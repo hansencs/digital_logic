@@ -12,6 +12,7 @@ namespace model {
 		public:
 		virtual const OutputPin *input(void) const = 0;
 		virtual std::span<const InputPin * const> outputs(void) const = 0;
+		virtual ~Wire(void) {};
 	};
 
 } // model

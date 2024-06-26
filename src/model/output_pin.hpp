@@ -12,6 +12,7 @@ namespace model {
 	class OutputPin : public Pin {
 		public:
 		virtual std::optional<const Wire *> output_wire(void) const = 0;
+		virtual ~OutputPin(void) override {};
 	};
 
 } // model

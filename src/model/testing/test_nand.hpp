@@ -16,6 +16,7 @@ namespace test {
 		virtual const InputPin *nand_left_input(void) const override;
 		virtual const InputPin *nand_right_input(void) const override;
 		virtual const OutputPin *nand_output(void) const override;
+		~TestNand(void);
 		std::vector<InputPin *> input_pins_;
 		std::vector<OutputPin *> output_pin_;
 	};

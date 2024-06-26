@@ -12,6 +12,7 @@ namespace model {
 		public:
 		virtual const Component *component(void) const = 0;
 		virtual const std::string &name(void) const = 0;
+		virtual ~Pin(void) {};
 	};
 
 } // model
