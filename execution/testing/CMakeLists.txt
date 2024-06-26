@@ -1,6 +1,7 @@
 add_library(
 	execution_testing
-	test_device.cc
+	manual_test_device.cc
+	stateless_test_device.cc
 )
 target_include_directories(
 	execution_testing

@@ -20,31 +20,54 @@ using namespace std;
 static void extract(
 	const Component *component,
 	set<const Component *> &discrete_components,
-	map<const Pin *, Signal> &pin_values
+	map<const Pin *, Signal> &pin_values,
+	size_t &device_input_buffer_size,
+	size_t &device_output_buffer_size
 );
 
 static inline void extract_circuit(
 	const Circuit *circuit,
 	set<const Component *> &discrete_components,
-	map<const Pin *, Signal> &pin_values
+	map<const Pin *, Signal> &pin_values,
+	size_t &device_input_buffer_size,
+	size_t &device_output_buffer_size
 ) {
-	for (auto sub_component : circuit->components())
-		extract(sub_component, discrete_components, pin_values);
+	for (auto sub_component : circuit->components()) {
+		extract(
+			sub_component,
+			discrete_components,
+			pin_values,
+			device_input_buffer_size,
+			device_output_buffer_size
+		);
+	}
 }
 
 static inline void extract_discrete_component(
 	const Component *component,
 	set<const Component *> &discrete_components,
-	map<const Pin *, Signal> &pin_values
+	map<const Pin *, Signal> &pin_values,
+	size_t &device_input_buffer_size,
+	size_t &device_output_buffer_size
 ) {
 	discrete_components.insert(component);
 	for (auto pin : component->input_pins()) pin_values[pin] = Signal::LOW;
+	device_input_buffer_size = max(
+		component->input_pins().size(),
+		device_input_buffer_size
+	);
+	device_output_buffer_size = max(
+		component->output_pins().size(),
+		device_output_buffer_size
+	);
 }
 
 static void extract(
 	const Component *component,
 	set<const Component *> &discrete_components,
-	map<const Pin *, Signal> &pin_values
+	map<const Pin *, Signal> &pin_values,
+	size_t &device_input_buffer_size,
+	size_t &device_output_buffer_size
 ) {
 	ComponentType c_type = component->component_type();
 	switch (c_type) {
@@ -52,7 +75,9 @@ static void extract(
 		return extract_circuit(
 			static_cast<const Circuit *>(component),
 			discrete_components,
-			pin_values
+			pin_values,
+			device_input_buffer_size,
+			device_output_buffer_size
 		);
 
 		case ComponentType::NAND:
@@ -60,7 +85,9 @@ static void extract(
 		return extract_discrete_component(
 			component,
 			discrete_components,
-			pin_values
+			pin_values,
+			device_input_buffer_size,
+			device_output_buffer_size
 		);
 		break;
 
@@ -71,14 +98,24 @@ static void extract(
 
 ModelBackedSimulation::ModelBackedSimulation(const Model *model) : model_(model)
 {
-	extract(model->top_level_component(), discrete_components_, pin_values_);
+	size_t device_input_buffer_size = 0;
+	size_t device_output_buffer_size = 0;
+	extract(
+		model->top_level_component(),
+		discrete_components_,
+		pin_values_,
+		device_input_buffer_size,
+		device_output_buffer_size
+	);
+	device_input_buffer_ = new uint8_t[device_input_buffer_size];
+	device_output_buffer_ = new uint8_t[device_output_buffer_size];
 }
 
 void ModelBackedSimulation::insert_device(
 	const model::Slot *slot,
 	Device *device
 ) {
-	device_map_[slot] = device;
+	device_map_[slot] = device->step_fn();
 }
 
 void ModelBackedSimulation::step_nand(const model::Nand *nand) {
@@ -91,17 +128,13 @@ void ModelBackedSimulation::step_nand(const model::Nand *nand) {
 
 void ModelBackedSimulation::step_slot(const Slot *slot) {
 	if (device_map_.find(slot) == device_map_.end()) return;
-	auto device = device_map_[slot];
-	Signal give = Signal::LOW, take;
-	bool set = false;
-	if (slot->input_pins().size() > 0) {
-		set = true;
-		give = pin_values_[slot->input_pins()[0]];
-	}
-	take = device->step(give, set);
-	if (slot->output_pins().size() > 0) {
-		pin_values_[slot->output_pins()[0]] = take;
-	}
+	unsigned i = 0;
+	for (auto pin : slot->input_pins())
+		device_input_buffer_[i++] = SIGNAL_TO_BYTE(pin_values_[pin]);
+	device_map_[slot](device_input_buffer_, device_output_buffer_);
+	i = 0;
+	for (auto pin : slot->output_pins())
+		pin_values_[pin] = BYTE_TO_SIGNAL(device_output_buffer_[i++]);
 }
 
 void ModelBackedSimulation::step(void) {
@@ -143,4 +176,9 @@ void ModelBackedSimulation::step(void) {
 			}
 		}
 	}
+}
+
+ModelBackedSimulation::~ModelBackedSimulation(void) {
+	delete device_input_buffer_;
+	delete device_output_buffer_;
 }
