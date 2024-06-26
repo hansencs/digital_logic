@@ -1,5 +1,5 @@
-#ifndef EXECUTION__SIMULATION_H_
-#define EXECUTION__SIMULATION_H_
+#ifndef EXECUTION__SIMULATION_HPP_
+#define EXECUTION__SIMULATION_HPP_
 
 namespace model {
 

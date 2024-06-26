@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "model_backed_simulation.h"
+#include "model_backed_simulation.hpp"
 #include "manual_test_device.hpp"
 #include "stateless_test_device.hpp"
 #include "test_circuit.hpp"

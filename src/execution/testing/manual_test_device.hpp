@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "device.h"
+#include "device.hpp"
 
 namespace execution {
 namespace test {

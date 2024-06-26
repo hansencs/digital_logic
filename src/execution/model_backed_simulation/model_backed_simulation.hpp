@@ -4,8 +4,8 @@
 #include <map>
 #include <set>
 
-#include "execution.h"
-#include "simulation.h"
+#include "execution.hpp"
+#include "simulation.hpp"
 
 namespace model {
 

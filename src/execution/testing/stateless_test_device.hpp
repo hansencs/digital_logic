@@ -1,7 +1,7 @@
 #ifndef MODEL__TEST_MODEL__STATELESS_TEST_DEVICE_HPP_
 #define MODEL__TEST_MODEL__STATELESS_TEST_DEVICE_HPP_
 
-#include "device.h"
+#include "device.hpp"
 
 namespace execution {
 namespace test {
