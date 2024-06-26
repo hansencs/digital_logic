@@ -1,5 +1,5 @@
-#ifndef MODEL__MODEL_H_
-#define MODEL__MODEL_H_
+#ifndef MODEL__MODEL_HPP_
+#define MODEL__MODEL_HPP_
 
 namespace model {
 

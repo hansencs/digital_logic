@@ -1,9 +1,9 @@
-#ifndef MODEL__TEST_MODEL__TEST_SLOT_H_
-#define MODEL__TEST_MODEL__TEST_SLOT_H_
+#ifndef MODEL__TEST_MODEL__TEST_SLOT_HPP_
+#define MODEL__TEST_MODEL__TEST_SLOT_HPP_
 
 #include <vector>
 
-#include "slot.h"
+#include "slot.hpp"
 
 namespace model {
 namespace test {

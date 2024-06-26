@@ -1,16 +1,16 @@
 #include <list>
 #include <string>
 
-#include "circuit.h"
-#include "component.h"
+#include "circuit.hpp"
+#include "component.hpp"
 #include "device.h"
-#include "model.h"
+#include "model.hpp"
 #include "model_backed_simulation.h"
 #include "nand.hpp"
 #include "input_pin.hpp"
 #include "output_pin.hpp"
-#include "slot.h"
-#include "wire.h"
+#include "slot.hpp"
+#include "wire.hpp"
 
 using namespace execution;
 using namespace execution::impl;

@@ -1,5 +1,5 @@
-#ifndef MODEL__COMPONENT_H_
-#define MODEL__COMPONENT_H_
+#ifndef MODEL__COMPONENT_HPP_
+#define MODEL__COMPONENT_HPP_
 
 #include <span>
 

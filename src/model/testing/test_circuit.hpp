@@ -1,9 +1,9 @@
-#ifndef MODEL__TEST_MODEL__TEST_CIRCUIT_H_
-#define MODEL__TEST_MODEL__TEST_CIRCUIT_H_
+#ifndef MODEL__TEST_MODEL__TEST_CIRCUIT_HPP_
+#define MODEL__TEST_MODEL__TEST_CIRCUIT_HPP_
 
 #include <vector>
 
-#include "circuit.h"
+#include "circuit.hpp"
 
 namespace model {
 namespace test {

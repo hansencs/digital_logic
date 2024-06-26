@@ -1,10 +1,10 @@
-#ifndef MODEL__CIRCUIT_H_
-#define MODEL__CIRCUIT_H_
+#ifndef MODEL__CIRCUIT_HPP_
+#define MODEL__CIRCUIT_HPP_
 
 #include <span>
 #include <string>
 
-#include "component.h"
+#include "component.hpp"
 
 namespace model {
 

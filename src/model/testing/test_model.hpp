@@ -1,9 +1,9 @@
-#ifndef MODEL__TEST_MODEL__TEST_MODEL_H_
-#define MODEL__TEST_MODEL__TEST_MODEL_H_
+#ifndef MODEL__TEST_MODEL__TEST_MODEL_HPP_
+#define MODEL__TEST_MODEL__TEST_MODEL_HPP_
 
 #include <map>
 
-#include "model.h"
+#include "model.hpp"
 
 namespace model {
 

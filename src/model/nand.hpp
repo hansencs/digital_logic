@@ -1,7 +1,7 @@
 #ifndef MODEL__NAND_HPP_
 #define MODEL__NAND_HPP_
 
-#include "component.h"
+#include "component.hpp"
 
 namespace model {
 

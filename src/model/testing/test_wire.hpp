@@ -5,7 +5,7 @@
 
 #include "input_pin.hpp"
 #include "output_pin.hpp"
-#include "wire.h"
+#include "wire.hpp"
 
 namespace model {
 namespace test {

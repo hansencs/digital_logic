@@ -1,7 +1,7 @@
-#ifndef MODEL__SLOT_H_
-#define MODEL__SLOT_H_
+#ifndef MODEL__SLOT_HPP_
+#define MODEL__SLOT_HPP_
 
-#include "component.h"
+#include "component.hpp"
 
 namespace model {
 

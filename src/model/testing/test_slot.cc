@@ -1,5 +1,5 @@
 #include "test_pin.hpp"
-#include "test_slot.h"
+#include "test_slot.hpp"
 
 using namespace model;
 using namespace model::test;

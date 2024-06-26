@@ -1,4 +1,4 @@
-#include "circuit.h"
+#include "circuit.hpp"
 
 using namespace model;
 

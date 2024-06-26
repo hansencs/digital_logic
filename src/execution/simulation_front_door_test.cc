@@ -6,10 +6,10 @@
 #include "model_backed_simulation.h"
 #include "manual_test_device.hpp"
 #include "stateless_test_device.hpp"
-#include "test_circuit.h"
-#include "test_model.h"
+#include "test_circuit.hpp"
+#include "test_model.hpp"
 #include "test_nand.hpp"
-#include "test_slot.h"
+#include "test_slot.hpp"
 #include "test_wire.hpp"
 
 using namespace execution;

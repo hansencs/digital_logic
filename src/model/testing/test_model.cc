@@ -1,4 +1,4 @@
-#include "test_model.h"
+#include "test_model.hpp"
 
 using namespace model;
 using namespace model::test;

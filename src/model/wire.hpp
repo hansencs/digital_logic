@@ -1,5 +1,5 @@
-#ifndef MODEL__WIRE_H_
-#define MODEL__WIRE_H_
+#ifndef MODEL__WIRE_HPP_
+#define MODEL__WIRE_HPP_
 
 #include <span>
 

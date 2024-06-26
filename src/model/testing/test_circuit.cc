@@ -1,5 +1,5 @@
 #include "output_pin.hpp"
-#include "test_circuit.h"
+#include "test_circuit.hpp"
 
 using namespace model;
 using namespace model::test;
