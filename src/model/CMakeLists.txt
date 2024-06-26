@@ -7,7 +7,7 @@ add_library(
 target_include_directories(
 	model
 	PUBLIC
-	"${PROJECT_SOURCE_DIR}/model"
+	"${PROJECT_SOURCE_DIR}/src/model"
 )
 
 add_subdirectory(testing)

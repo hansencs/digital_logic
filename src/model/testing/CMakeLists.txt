@@ -10,7 +10,7 @@ add_library(
 target_include_directories(
 	model_testing
 	PUBLIC
-	"${PROJECT_SOURCE_DIR}/model/testing"
+	"${PROJECT_SOURCE_DIR}/src/model/testing"
 )
 target_link_libraries(
 	model_testing

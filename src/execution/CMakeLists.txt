@@ -5,7 +5,7 @@ add_library(
 target_include_directories(
 	execution
 	PUBLIC
-	"${PROJECT_SOURCE_DIR}/execution"
+	"${PROJECT_SOURCE_DIR}/src/execution"
 )
 target_link_libraries(
 	execution

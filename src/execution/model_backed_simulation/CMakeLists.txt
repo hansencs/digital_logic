@@ -5,11 +5,11 @@ add_library(
 target_include_directories(
 	model_backed_simulation
 	PUBLIC
-	"${PROJECT_SOURCE_DIR}/execution/model_backed_simulation"
+	"${PROJECT_SOURCE_DIR}/src/execution/model_backed_simulation"
 )
 target_include_directories(
 	model_backed_simulation
 	PRIVATE
-	"${PROJECT_SOURCE_DIR}/execution"
-	"${PROJECT_SOURCE_DIR}/model"
+	"${PROJECT_SOURCE_DIR}/src/execution"
+	"${PROJECT_SOURCE_DIR}/src/model"
 )
