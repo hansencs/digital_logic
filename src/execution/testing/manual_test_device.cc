@@ -11,6 +11,7 @@ ManualTestDevice::ManualTestDevice(unsigned input_pins, unsigned output_pins) {
 		outputs_.push_back(Signal::LOW);
 }
 
+#include <iostream>
 void ManualTestDevice::step_functor(
 	ManualTestDevice *device, uint8_t *input_buffer, uint8_t *output_buffer
 ) {

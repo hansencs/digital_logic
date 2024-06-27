@@ -10,7 +10,7 @@ namespace test {
 
 	class TestCircuit : public Circuit {
 		public:
-		TestCircuit();
+		TestCircuit(unsigned input_pin_count, unsigned output_pin_count);
 		virtual std::span<const InputPin * const> input_pins(void)
 			const override;
 		virtual std::span<const OutputPin * const> output_pins(void)

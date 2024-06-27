@@ -1,12 +1,17 @@
-#include "input_pin.hpp"
-#include "output_pin.hpp"
 #include "test_circuit.hpp"
+#include "test_pin.hpp"
 
 using namespace model;
 using namespace model::test;
 using namespace std;
 
-TestCircuit::TestCircuit(void) {
+TestCircuit::TestCircuit(unsigned input_pin_count, unsigned output_pin_count) {
+	for (unsigned i = 0; i < input_pin_count; i++) {
+		input_pins_.push_back(new TestPin(this, string("in") + to_string(i)));
+	}
+	for (unsigned i = 0; i < output_pin_count; i++) {
+		output_pins_.push_back(new TestPin(this, string("out") + to_string(i)));
+	}
 }
 
 span<const InputPin * const> TestCircuit::input_pins(void) const {
