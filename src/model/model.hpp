@@ -7,6 +7,7 @@ namespace model {
 
 	class Model {
 		public:
+		void validate(void) const;
 		virtual const Component *top_level_component(void) const = 0;
 		virtual ~Model(void) {};
 	};
