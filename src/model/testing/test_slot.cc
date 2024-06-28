@@ -1,4 +1,5 @@
-#include "test_pin.hpp"
+#include "test_input_pin.hpp"
+#include "test_output_pin.hpp"
 #include "test_slot.hpp"
 
 using namespace model;
@@ -7,10 +8,14 @@ using namespace std;
 
 TestSlot::TestSlot(unsigned input_pin_count, unsigned output_pin_count) {
 	for (unsigned i = 0; i < input_pin_count; i++) {
-		input_pins_.push_back(new TestPin(this, string("in") + to_string(i)));
+		input_pins_.push_back(
+			new TestInputPin(this, string("in") + to_string(i))
+		);
 	}
 	for (unsigned i = 0; i < output_pin_count; i++) {
-		output_pins_.push_back(new TestPin(this, string("out") + to_string(i)));
+		output_pins_.push_back(
+			new TestOutputPin(this, string("out") + to_string(i))
+		);
 	}
 }
 

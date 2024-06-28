@@ -1,9 +1,10 @@
 add_library(
 	model_testing
 	test_circuit.cc
+	test_input_pin.cc
 	test_model.cc
 	test_nand.cc
-	test_pin.cc
+	test_output_pin.cc
 	test_slot.cc
 	test_wire.cc
 )

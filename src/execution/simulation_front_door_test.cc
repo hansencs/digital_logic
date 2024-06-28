@@ -7,8 +7,10 @@
 #include "manual_test_device.hpp"
 #include "stateless_test_device.hpp"
 #include "test_circuit.hpp"
+#include "test_input_pin.hpp"
 #include "test_model.hpp"
 #include "test_nand.hpp"
+#include "test_output_pin.hpp"
 #include "test_slot.hpp"
 #include "test_wire.hpp"
 
@@ -84,7 +86,6 @@ TEST_P(SimulationTest, PinsInitializedLow) {
 	simulation->insert_device(slot1, &device1);
 	simulation->insert_device(slot2, &device2);
 
-
 	device1.set(0, Signal::HIGH);
 
 	EXPECT_EQ(device2.check(0), Signal::LOW);
@@ -105,7 +106,6 @@ TEST_P(SimulationTest, TwoDevicesPassThrough) {
 	ManualTestDevice device2 { 1, 0 };
 	simulation->insert_device(slot1, &device1);
 	simulation->insert_device(slot2, &device2);
-
 
 	device1.set(0, Signal::HIGH);
 	simulation->step();
@@ -154,7 +154,6 @@ TEST_P(SimulationTest, DevicePassThroughMultiOutputPin) {
 		})
 	);
 }
-
 
 TEST_P(SimulationTest, MultiplePinSlots) {
 	TestSlot *slot1 = new TestSlot(0, 2);
@@ -237,7 +236,6 @@ TEST_P(SimulationTest, SingleNand) {
 	simulation->insert_device(slot2, &device2);
 	simulation->insert_device(slot3, &device3);
 
-
 	device1.set(0, Signal::LOW);
 	simulation->step();
 	simulation->step();
@@ -319,6 +317,52 @@ TEST_P(SimulationTest, TwoNandSeries) {
 	EXPECT_EQ(
 		results,
 		vector<Signal>({ Signal::LOW, Signal::HIGH })
+	);
+}
+
+TEST_P(SimulationTest, TwoCircuitLayers) {
+	TestNand *nand1 = new TestNand();
+	TestCircuit *circuit1 = new TestCircuit(1, 1);
+	TestWire w1 = TestWire();
+	TestWire w2 = TestWire();
+	w1.connect_pin(circuit1->interior_input_pins_[0]);
+	w1.connect_pin(nand1->input_pins_[0]);
+	w1.connect_pin(nand1->input_pins_[1]);
+	w2.connect_pin(nand1->output_pin_[0]);
+	w2.connect_pin(circuit1->interior_output_pins_[0]);
+	circuit1->components_.push_back(nand1);
+	TestSlot *slot1 = new TestSlot(0, 1);
+	TestSlot *slot2 = new TestSlot(1, 0);
+	TestCircuit *circuit2 = new TestCircuit(0, 0);
+	TestWire w3 = TestWire();
+	TestWire w4 = TestWire();
+	w3.connect_pin(slot1->output_pins_[0]);
+	w3.connect_pin(circuit1->input_pins_[0]);
+	w4.connect_pin(circuit1->output_pins_[0]);
+	w4.connect_pin(slot2->input_pins_[0]);
+	circuit2->components_.push_back(slot1);
+	circuit2->components_.push_back(circuit1);
+	circuit2->components_.push_back(slot2);
+	model = new TestModel(circuit2);
+	make_simulation();
+	ManualTestDevice device1 { 0, 1 };
+	ManualTestDevice device2 { 1, 0 };
+	simulation->insert_device(slot1, &device1);
+	simulation->insert_device(slot2, &device2);
+
+	device1.set(0, Signal::LOW);
+	simulation->step();
+	simulation->step();
+	simulation->step();
+	vector<Signal> results = { device2.check(0) };
+	device1.set(0, Signal::HIGH);
+	simulation->step();
+	simulation->step();
+	simulation->step();
+	results.push_back(device2.check(0));
+	EXPECT_EQ(
+		results,
+		vector<Signal>({ Signal::HIGH, Signal::LOW })
 	);
 }
 

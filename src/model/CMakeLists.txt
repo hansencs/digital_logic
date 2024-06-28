@@ -1,6 +1,7 @@
 add_library(
 	model
 	circuit.cc
+	input_pin.cc
 	nand.cc
 	slot.cc
 )

@@ -1,14 +1,15 @@
+#include "test_input_pin.hpp"
 #include "test_nand.hpp"
-#include "test_pin.hpp"
+#include "test_output_pin.hpp"
 
 using namespace model;
 using namespace model::test;
 using namespace std;
 
 TestNand::TestNand(void) {
-	input_pins_.push_back(new TestPin(this, "left"));
-	input_pins_.push_back(new TestPin(this, "right"));
-	output_pin_.push_back(new TestPin(this, "out"));
+	input_pins_.push_back(new TestInputPin(this, "left"));
+	input_pins_.push_back(new TestInputPin(this, "right"));
+	output_pin_.push_back(new TestOutputPin(this, "out"));
 }
 
 span<const InputPin * const> TestNand::input_pins(void) const {

@@ -1,5 +1,6 @@
 #include "test_circuit.hpp"
-#include "test_pin.hpp"
+#include "test_input_pin.hpp"
+#include "test_output_pin.hpp"
 
 using namespace model;
 using namespace model::test;
@@ -7,10 +8,18 @@ using namespace std;
 
 TestCircuit::TestCircuit(unsigned input_pin_count, unsigned output_pin_count) {
 	for (unsigned i = 0; i < input_pin_count; i++) {
-		input_pins_.push_back(new TestPin(this, string("in") + to_string(i)));
+		auto interior = new TestOutputPin(this, string("in") + to_string(i));
+		interior_input_pins_.push_back(interior);
+		input_pins_.push_back(
+			new TestInputPin(this, string("in") + to_string(i), interior)
+		);
 	}
 	for (unsigned i = 0; i < output_pin_count; i++) {
-		output_pins_.push_back(new TestPin(this, string("out") + to_string(i)));
+		auto exterior = new TestOutputPin(this, string("out") + to_string(i));
+		output_pins_.push_back(exterior);
+		interior_output_pins_.push_back(
+			new TestInputPin(this, string("out") + to_string(i), exterior)
+		);
 	}
 }
 
@@ -26,15 +35,10 @@ span<const Component * const> TestCircuit::components(void) const {
 	return { components_ };
 }
 
-const OutputPin *TestCircuit::get_interior_input_pin(string pin_name) const {
-	for (auto pin : interior_input_pins_) {
-		if (pin->name() == pin_name) return pin;
-	}
-	throw string("pin name not found: " + pin_name);
-}
-
 TestCircuit::~TestCircuit(void) {
 	for (auto sub_component : components_) delete sub_component;
 	for (auto pin : input_pins_) delete pin;
+	for (auto pin : interior_input_pins_) delete pin;
 	for (auto pin : output_pins_) delete pin;
+	for (auto pin : interior_output_pins_) delete pin;
 }

@@ -16,6 +16,8 @@ using namespace execution;
 using namespace execution::impl;
 using namespace model;
 using namespace std;
+#include <iostream>
+
 
 static void extract(
 	const Component *component,
@@ -153,11 +155,14 @@ void ModelBackedSimulation::step(void) {
 			throw string("invalid component type");
 		}
 	}
+	set<const OutputPin *> lll;
 	for (auto component : discrete_components_) {
 		auto pin_vec = component->output_pins();
 		list<const OutputPin *> frontier { pin_vec.begin(), pin_vec.end() };
 		while (!frontier.empty()) {
 			auto pin = frontier.front();
+			if (lll.find(pin) != lll.end()) throw string("uggg ");
+			lll.insert(pin);
 			frontier.pop_front();
 			auto maybe_wire = pin->output_wire();
 			if (!maybe_wire.has_value()) continue;
@@ -165,13 +170,11 @@ void ModelBackedSimulation::step(void) {
 			wire_values_[wire] = pin_values_[pin];
 			for (auto w_out_pin : wire->outputs()) {
 				pin_values_[w_out_pin] = wire_values_[wire];
-				auto w_out_component = w_out_pin->component();
-				if (w_out_component->component_type() == ComponentType::CIRCUIT) {
-					auto circuit = static_cast<const Circuit *>(w_out_component);
-					auto name = w_out_pin->name();
-					auto new_frontier_pin = circuit->get_interior_input_pin(name);
-					pin_values_[new_frontier_pin] = pin_values_[w_out_pin];
-					frontier.push_back(new_frontier_pin);
+				auto maybe_dual = w_out_pin->dual();
+				if (maybe_dual.has_value()) {
+					auto dual = *maybe_dual;
+					pin_values_[dual] = pin_values_[w_out_pin];
+					frontier.push_back(dual);
 				}
 			}
 		}
