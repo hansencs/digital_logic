@@ -1,15 +1,15 @@
 add_library(
 	execution
-	simulation.cc
+	INTERFACE
 )
 target_include_directories(
 	execution
-	PUBLIC
+	INTERFACE
 	"${PROJECT_SOURCE_DIR}/src/execution"
 )
 target_link_libraries(
 	execution
-	PUBLIC
+	INTERFACE
 	model_backed_simulation
 )
 
