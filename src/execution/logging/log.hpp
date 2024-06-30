@@ -4,8 +4,11 @@
 namespace execution {
 namespace logging {
 
+	class LogEntry;
+
 	class Log {
 		public:
+		virtual void record(LogEntry *) = 0;
 		virtual ~Log(void) {};
 	};
 

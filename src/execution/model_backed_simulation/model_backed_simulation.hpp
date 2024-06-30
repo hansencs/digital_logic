@@ -3,6 +3,7 @@
 
 #include <map>
 #include <set>
+#include <vector>
 
 #include "execution.hpp"
 #include "simulation.hpp"
@@ -25,6 +26,7 @@ namespace impl {
 		ModelBackedSimulation(const model::Model *);
 		virtual void insert_device(const model::Slot *, Device *) override;
 		virtual void step(void) override;
+		virtual void register_log_step(logging::Log *) override;
 		~ModelBackedSimulation(void);
 
 		private:
@@ -37,6 +39,7 @@ namespace impl {
 		std::map<const model::Slot *, std::function<void (uint8_t *, uint8_t *)>> device_map_;
 		uint8_t *device_input_buffer_;
 		uint8_t *device_output_buffer_;
+		std::vector<logging::Log *> step_logs_;
 	};
 
 } // impl

@@ -4,16 +4,19 @@
 #include "circuit.hpp"
 #include "component.hpp"
 #include "device.hpp"
+#include "log.hpp"
 #include "model.hpp"
 #include "model_backed_simulation.hpp"
 #include "nand.hpp"
 #include "input_pin.hpp"
 #include "output_pin.hpp"
 #include "slot.hpp"
+#include "step_log_entry.hpp"
 #include "wire.hpp"
 
 using namespace execution;
 using namespace execution::impl;
+using namespace execution::logging;
 using namespace model;
 using namespace std;
 #include <iostream>
@@ -140,6 +143,7 @@ void ModelBackedSimulation::step_slot(const Slot *slot) {
 }
 
 void ModelBackedSimulation::step(void) {
+	for (auto log : step_logs_) log->record(new StepLogEntry());
 	for (auto component : discrete_components_) {
 		ComponentType c_type = component->component_type();
 		switch (c_type) {
@@ -155,14 +159,11 @@ void ModelBackedSimulation::step(void) {
 			throw string("invalid component type");
 		}
 	}
-	set<const OutputPin *> lll;
 	for (auto component : discrete_components_) {
 		auto pin_vec = component->output_pins();
 		list<const OutputPin *> frontier { pin_vec.begin(), pin_vec.end() };
 		while (!frontier.empty()) {
 			auto pin = frontier.front();
-			if (lll.find(pin) != lll.end()) throw string("uggg ");
-			lll.insert(pin);
 			frontier.pop_front();
 			auto maybe_wire = pin->output_wire();
 			if (!maybe_wire.has_value()) continue;
@@ -179,6 +180,10 @@ void ModelBackedSimulation::step(void) {
 			}
 		}
 	}
+}
+
+void ModelBackedSimulation::register_log_step(logging::Log *log) {
+	step_logs_.push_back(log);
 }
 
 ModelBackedSimulation::~ModelBackedSimulation(void) {

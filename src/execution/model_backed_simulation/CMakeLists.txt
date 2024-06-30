@@ -11,5 +11,6 @@ target_include_directories(
 	model_backed_simulation
 	PRIVATE
 	"${PROJECT_SOURCE_DIR}/src/execution"
+	"${PROJECT_SOURCE_DIR}/src/execution/logging"
 	"${PROJECT_SOURCE_DIR}/src/model"
 )

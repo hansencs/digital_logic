@@ -1,6 +1,8 @@
 #ifndef EXECUTION__SIMULATION_HPP_
 #define EXECUTION__SIMULATION_HPP_
 
+#include <vector>
+
 namespace model {
 
 	class Slot;
@@ -19,10 +21,13 @@ namespace execution {
 
 	class Simulation {
 		public:
-		void register_log_step(logging::Log *);
 		virtual void insert_device(const model::Slot *, Device *) = 0;
 		virtual void step(void) = 0;
+		virtual void register_log_step(logging::Log *) = 0;
 		virtual ~Simulation(void) {};
+
+		private:
+		std::vector<logging::Log *> step_logs_;
 	};
 
 } // execution

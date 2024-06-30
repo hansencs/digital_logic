@@ -6,6 +6,7 @@
 #include "model_backed_simulation.hpp"
 #include "manual_test_device.hpp"
 #include "stateless_test_device.hpp"
+#include "step_log_entry.hpp"
 #include "test_circuit.hpp"
 #include "test_input_pin.hpp"
 #include "test_log.hpp"
@@ -17,6 +18,7 @@
 
 using namespace execution;
 using namespace execution::impl;
+using namespace execution::logging;
 using namespace execution::test;
 using namespace execution::logging::test;
 using namespace model;
@@ -374,6 +376,11 @@ TEST_P(SimulationTest, StepLogging) {
 	make_simulation();
 	TestLog log {};
 	simulation->register_log_step(&log);
+
+	simulation->step();
+
+	EXPECT_EQ(log.entries_.size(), 1);
+	EXPECT_EQ(log.entries_[0]->to_string(), StepLogEntry().to_string());
 }
 
 // TODO

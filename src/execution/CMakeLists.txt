@@ -1,6 +1,6 @@
 add_library(
 	execution
-	simulation.cc
+	step_log_entry.cc
 )
 target_include_directories(
 	execution
@@ -9,7 +9,7 @@ target_include_directories(
 )
 target_link_libraries(
 	execution
-	INTERFACE
+	PUBLIC
 	logging
 	model_backed_simulation
 )
