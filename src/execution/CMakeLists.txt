@@ -1,18 +1,20 @@
 add_library(
 	execution
-	INTERFACE
+	simulation.cc
 )
 target_include_directories(
 	execution
-	INTERFACE
+	PUBLIC
 	"${PROJECT_SOURCE_DIR}/src/execution"
 )
 target_link_libraries(
 	execution
 	INTERFACE
+	logging
 	model_backed_simulation
 )
 
+add_subdirectory(logging)
 add_subdirectory(model_backed_simulation)
 add_subdirectory(testing)
 
@@ -27,6 +29,7 @@ target_link_libraries(
 	execution
 	execution_testing
 	GTest::gtest_main
+	logging_testing
 	model_testing
 )
 

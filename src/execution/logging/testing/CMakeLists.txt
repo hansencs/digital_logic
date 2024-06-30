@@ -1,0 +1,13 @@
+add_library(
+	logging_testing
+	test_log.cc
+)
+target_include_directories(
+	logging_testing
+	PUBLIC
+	"${PROJECT_SOURCE_DIR}/src/execution/logging/testing"
+)
+target_link_libraries(
+	logging_testing
+	logging
+)

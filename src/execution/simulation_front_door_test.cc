@@ -8,6 +8,7 @@
 #include "stateless_test_device.hpp"
 #include "test_circuit.hpp"
 #include "test_input_pin.hpp"
+#include "test_log.hpp"
 #include "test_model.hpp"
 #include "test_nand.hpp"
 #include "test_output_pin.hpp"
@@ -17,6 +18,7 @@
 using namespace execution;
 using namespace execution::impl;
 using namespace execution::test;
+using namespace execution::logging::test;
 using namespace model;
 using namespace model::test;
 using namespace std;
@@ -364,6 +366,14 @@ TEST_P(SimulationTest, TwoCircuitLayers) {
 		results,
 		vector<Signal>({ Signal::HIGH, Signal::LOW })
 	);
+}
+
+TEST_P(SimulationTest, StepLogging) {
+	TestCircuit *circuit = new TestCircuit(0, 0);
+	model = new TestModel(circuit);
+	make_simulation();
+	TestLog log {};
+	simulation->register_log_step(&log);
 }
 
 // TODO
